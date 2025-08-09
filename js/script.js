@@ -1,5 +1,13 @@
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Safety cleanup: remove any leftover modal state or transition overlays that might block clicks
+    document.body.classList.remove('modal-open');
+    document.body.style.removeProperty('top');
+    const staleOverlays = document.querySelectorAll('.theme-transition-overlay');
+    staleOverlays.forEach(o => { if (o.parentNode) o.parentNode.removeChild(o); });
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(m => { if (!m.classList.contains('active')) { m.style.display='none'; m.style.opacity='0'; } });
+
     // Initialize all functionality
     initializeThemeToggle();
     initializeNavigation();
@@ -24,7 +32,6 @@ function initializeProfileImage() {
     const profileFallback = document.querySelector('.profile-fallback');
     
     if (!profilePhoto) {
-        console.log('No profile photo element found');
         if (profileFallback) {
             profileFallback.style.opacity = '1';
         }
@@ -72,7 +79,6 @@ function initializeProfileImage() {
         
         // Only update if the src is different
         if (profilePhoto.src !== newImageSrc && !profilePhoto.src.endsWith(newImageSrc)) {
-            console.log(`Switching to ${isCurrentLightTheme ? 'light' : 'dark'} theme image: ${newImageSrc}`);
             
             // Hide current image and show fallback during transition
             profilePhoto.style.opacity = '0';
@@ -88,7 +94,6 @@ function initializeProfileImage() {
     
     // Handle successful image load
     profilePhoto.addEventListener('load', function() {
-        console.log('Profile image loaded successfully:', this.src);
         this.style.display = 'block';
         
         // Hide fallback first
@@ -105,7 +110,6 @@ function initializeProfileImage() {
     
     // Handle image load error
     profilePhoto.addEventListener('error', function() {
-        console.log('Profile image failed to load, showing fallback:', this.src);
         this.style.display = 'none';
         this.style.opacity = '0';
         if (profileFallback) {
@@ -135,7 +139,6 @@ function initializeThemeToggle() {
     const body = document.body;
     
     if (!themeToggle) {
-        console.error('Theme toggle not found!');
         return;
     }
     
@@ -154,10 +157,10 @@ function initializeThemeToggle() {
     if (!savedTheme) {
         // No saved preference, use system default
         currentTheme = getSystemThemePreference();
-        console.log('No saved theme found, using system preference:', currentTheme);
+    /* removed debug */
     } else {
         currentTheme = savedTheme;
-        console.log('Using saved theme preference:', currentTheme);
+    /* removed debug */
     }
     
     // Apply theme
@@ -180,7 +183,7 @@ function initializeThemeToggle() {
             // Only auto-switch if user hasn't manually set a preference
             if (!localStorage.getItem('theme')) {
                 const newTheme = e.matches ? 'light' : 'dark';
-                console.log('System theme changed to:', newTheme);
+                /* removed debug */
                 
                 if (newTheme === 'light') {
                     body.classList.add('light-theme');
@@ -198,17 +201,19 @@ function initializeThemeToggle() {
     }
     
     // Theme toggle event listener
-    themeToggle.addEventListener('change', function() {
-        console.log('Theme toggle clicked:', this.checked);
+    function applyTheme(checked){
+    /* removed debug */
+    // Lightweight transition flag (CSS not required but can be hooked later)
+    body.classList.add('theme-switching');
+    // Prevent only horizontal flicker (no vertical scroll locking)
+    document.documentElement.style.overflowX = 'hidden';
+    body.style.overflowX = 'hidden';
         
-        // Add transition class for smooth animations
-        body.classList.add('theme-switching');
-        
-        if (this.checked) {
+        if (checked) {
             // Switch to light theme
             body.classList.add('light-theme');
             localStorage.setItem('theme', 'light');
-            console.log('Switching to light theme');
+            /* removed debug */
             
             // Enhanced light theme animations
             triggerLightThemeAnimations();
@@ -222,7 +227,7 @@ function initializeThemeToggle() {
             // Switch to dark theme
             body.classList.remove('light-theme');
             localStorage.setItem('theme', 'dark');
-            console.log('Switching to dark theme');
+            /* removed debug */
             
             // Enhanced dark theme animations
             triggerDarkThemeAnimations();
@@ -234,10 +239,16 @@ function initializeThemeToggle() {
             updateNavigationTheme('dark');
         }
         
-        // Remove transition class after animation
+        // Remove transition class after animation (shorter duration)
         setTimeout(() => {
             body.classList.remove('theme-switching');
-        }, 600);
+            document.documentElement.style.overflowX = '';
+            body.style.overflowX = '';
+        }, 350);
+    }
+
+    themeToggle.addEventListener('change', function(){
+        applyTheme(this.checked);
     });
 }
 
@@ -312,7 +323,7 @@ function triggerLightThemeAnimations() {
     const sunRays = document.querySelector('.sun-rays');
     const shapes = document.querySelectorAll('.shape');
     
-    console.log('Triggering light theme animations');
+    /* removed debug */
     
     // Hide particles (stars)
     if (particles) {
@@ -383,37 +394,33 @@ function triggerDarkThemeAnimations() {
     const lightBackground = document.querySelector('.light-background');
     const lightElements = document.querySelectorAll('.cloud, .sun-rays, .shape');
     
-    console.log('Triggering dark theme animations');
+    /* removed debug */
     
     // Hide light background
     if (lightBackground) {
         lightBackground.style.opacity = '0';
     }
     
-    // Show particles (stars)
+    // Show particles (stars) - reuse existing star field to avoid jank
     if (particles) {
         particles.style.opacity = '1';
-        
-        // Clear existing stars and recreate
-        particles.innerHTML = '';
-        
-        // Recreate star field with entrance animation
-        setTimeout(() => {
-            createProfessionalStarField(particles);
-            
-            // Animate stars entrance
-            const stars = particles.querySelectorAll('.star');
-            stars.forEach((star, index) => {
+        const existingStars = particles.querySelectorAll('.star');
+        if (existingStars.length === 0) {
+            // Create once if missing (e.g. first load directly in dark theme)
+            requestIdleCallback ? requestIdleCallback(() => createProfessionalStarField(particles)) : setTimeout(() => createProfessionalStarField(particles), 50);
+        } else {
+            // Gentle re-intro animation without DOM teardown
+            existingStars.forEach((star, index) => {
+                star.style.transition = 'none';
                 star.style.opacity = '0';
                 star.style.transform = 'scale(0)';
-                
                 setTimeout(() => {
-                    star.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                    star.style.transition = 'opacity 0.5s ease, transform 0.6s ease';
                     star.style.opacity = star.dataset.originalOpacity || '0.5';
                     star.style.transform = 'scale(1)';
-                }, index * 30); // Faster animation
+                }, 20 + index * 15);
             });
-        }, 100);
+        }
     }
     
     // Fade out light theme elements
@@ -428,21 +435,25 @@ function triggerDarkThemeAnimations() {
 function initializeNavigation() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
+    const mobileMenu = document.querySelector('.mobile-menu'); // NEW separate mobile menu
     const navLinks = document.querySelectorAll('.nav-menu a');
+    const mobileLinks = document.querySelectorAll('.mobile-menu a'); // NEW mobile menu links
     const navbar = document.querySelector('.navbar');
 
-    // Toggle mobile menu
-    if (hamburger) {
+    // Toggle mobile menu - USE THE SEPARATE MOBILE MENU
+    if (hamburger && mobileMenu) {
         hamburger.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
         });
+    } else {
+    /* removed debug */
     }
 
-    // Close menu when clicking on links
-    navLinks.forEach(link => {
+    // Close mobile menu when clicking on mobile links
+    mobileLinks.forEach(link => {
         link.addEventListener('click', function() {
-            navMenu.classList.remove('active');
+            mobileMenu.classList.remove('active');
             hamburger.classList.remove('active');
         });
     });
@@ -500,35 +511,30 @@ function initializeNavigation() {
 
 // Project links functionality - Updated to handle both preview and code links
 function initializeProjectLinks() {
-    console.log('Initializing project links...');
     
     const codeLinks = document.querySelectorAll('.code-link');
     const previewLinks = document.querySelectorAll('.preview-link');
     const privacyModal = document.getElementById('privacy-modal');
     const previewModal = document.getElementById('preview-modal');
     
-    console.log('Found code links:', codeLinks.length);
-    console.log('Found preview links:', previewLinks.length);
-    console.log('Privacy modal element:', privacyModal);
-    console.log('Preview modal element:', previewModal);
     
     if (!privacyModal) {
-        console.error('Privacy modal not found!');
+    /* removed debug */
     }
     
     if (!previewModal) {
-        console.error('Preview modal not found!');
+    /* removed debug */
     }
     
     // Handle source code links
     codeLinks.forEach((link, index) => {
-        console.log(`Setting up code link ${index}:`, link);
+    /* removed debug */
         
         link.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             
-            console.log('Code link clicked, showing privacy modal...');
+            /* removed debug */
             
             if (privacyModal) {
                 showModal(privacyModal);
@@ -538,13 +544,13 @@ function initializeProjectLinks() {
     
     // Handle project preview links
     previewLinks.forEach((link, index) => {
-        console.log(`Setting up preview link ${index}:`, link);
+    /* removed debug */
         
         link.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             
-            console.log('Preview link clicked, showing preview modal...');
+            /* removed debug */
             
             if (previewModal) {
                 showModal(previewModal);
@@ -556,8 +562,9 @@ function initializeProjectLinks() {
 // Helper function to show modals with consistent behavior
 function showModal(modal) {
     // Show modal with proper display and animation
-    modal.style.display = 'block';
+    modal.style.display = 'flex';
     modal.style.opacity = '0';
+    document.body.classList.add('modal-open');
     
     // Force reflow to ensure display is applied
     modal.offsetHeight;
@@ -572,7 +579,7 @@ function showModal(modal) {
     modal.classList.add('active');
     
     // Disable body scroll when modal is open
-    document.body.style.overflow = 'hidden';
+    // overflow handled by modal-open class
 }
 
 // Modal functionality - Enhanced to handle both modals
@@ -585,18 +592,18 @@ function initializeModal() {
         return;
     }
     
-    console.log('Initializing modal functionality...');
+    /* removed debug */
     
     // Function to close modal
     function closeModal(modal) {
-        console.log('Closing modal...');
+    /* removed debug */
         modal.style.transition = 'opacity 0.3s ease';
         modal.style.opacity = '0';
         
         setTimeout(() => {
             modal.style.display = 'none';
             modal.classList.remove('active');
-            document.body.style.overflow = ''; // Re-enable body scroll
+            document.body.classList.remove('modal-open');
         }, 300);
     }
     
@@ -680,7 +687,7 @@ function initializeContactLinks() {
                                this.href.includes('github') ? 'github' : 
                                this.href.includes('maps') ? 'location' : 'unknown';
             
-            console.log(`Contact ${contactType} clicked`);
+            /* removed debug */
         });
         
         // Add hover sound effect (optional)
@@ -883,11 +890,11 @@ function initializeParticleBackground() {
     const particlesContainer = document.querySelector('.particles');
     
     if (!particlesContainer) {
-        console.error('Particles container not found');
+    /* removed debug */
         return;
     }
     
-    console.log('Initializing particle background');
+    /* removed debug */
     
     // Check current theme and initialize accordingly
     const body = document.body;
@@ -906,7 +913,6 @@ function initializeParticleBackground() {
 }
 
 function createProfessionalStarField(container) {
-    console.log('Creating professional star field');
     
     // Clear existing particles
     container.innerHTML = '';
@@ -1203,9 +1209,7 @@ function optimizePerformance() {
 document.addEventListener('DOMContentLoaded', optimizePerformance);
 
 // Error handling
-window.addEventListener('error', function(e) {
-    console.error('An error occurred:', e.error);
-});
+/* removed global error console logging */
 
 // Console welcome message
 console.log(`
