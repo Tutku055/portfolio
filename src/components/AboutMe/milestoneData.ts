@@ -20,11 +20,11 @@ export interface MilestoneData {
  * pink → purple → blue → teal → cyan
  */
 const COLOR_CYCLE = [
-  "#00c8ff",  // cyan (matches 15% road position)
-  "#a855f7",  // purple (matches 50% road position)
-  "#f8e912",  // blue (matches 85% road position)
-  "#00ffa6",  // cyan-green (matches end of road)
-  "#ff2d75",  // hot pink
+  "#00c8ff", // cyan (matches 15% road position)
+  "#a855f7", // purple (matches 50% road position)
+  "#f8e912", // blue (matches 85% road position)
+  "#00ffa6", // cyan-green (matches end of road)
+  "#ff2d75", // hot pink
 ];
 
 /** Raw milestone entries — add as many as you want here */
@@ -34,24 +34,42 @@ const rawMilestones: Omit<MilestoneData, "stepNumber" | "glowColor">[] = [
     period: "2022 – Expected 2027",
     position: "3rd Year Computer Engineering Student",
     description:
-      "Pursuing a Bachelor's degree in Computer Engineering. Focused on software architecture, algorithms, data structures, and system design. Active participant in university tech communities and hackathons.",
-    technologies: ["C#", "Python", "Java", "SQL", "Data Structures", "Algorithms"],
+      "I study Computer Engineering at this university, where I keep my academic performance high with a 3.79 GPA.",
   },
   {
     title: "Tezmaksan Makina",
     period: "2025 Jun – 2025 Aug",
     position: "Backend Developer Intern",
     description:
-      "Summer internship focused on backend development. Contributed to internal tooling and API development, working with enterprise-level codebases and agile development practices.",
-    technologies: [".NET", "C#", "REST API", "SQL Server", "Git"],
+      "During my internship, I built a high-performance, multi-threaded CNC monitoring service in C++ from scratch to replace a legacy C# system. I managed the entire process, from ensuring real-time data flow and SQL integration to testing and deploying the system in a live factory environment.",
+    technologies: [
+      "C++",
+      "C#",
+      "SQL",
+      "Multi-threading",
+      "Real-time Systems",
+      "Data Processing",
+      "Software Architecture",
+      "Software Testing",
+      "Technical Documentation",
+    ],
   },
   {
     title: "Google Developer Groups",
     period: "2025 – Present",
     position: "Backend Developer",
     description:
-      "Active member and backend developer within Google Developer Groups. Building community-driven projects, organising workshops, and contributing to open-source initiatives.",
-    technologies: ["Node.js", "Go", "Cloud", "Firebase", "Docker"],
+      "I collaborate with a dynamic team to brainstorm and design scalable backend architectures for community-driven, open-source projects. I actively contribute to the system design and feature ideation, particularly focusing on real-time interactive platforms.",
+    technologies: [
+      "C#",
+      ".NET",
+      "TypeScript",
+      "Electron.js",
+      "Backend Architecture",
+      "System Design",
+      "Real-time Systems",
+      "Open-source Development",
+    ],
   },
 ];
 

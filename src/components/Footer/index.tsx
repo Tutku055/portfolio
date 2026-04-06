@@ -8,9 +8,9 @@ import {
 } from "@phosphor-icons/react";
 import "./Footer.css";
 
-const LINKEDIN_URL = "https://www.linkedin.com/in/tutkualtinyaprak/";
-const GITHUB_URL = "https://github.com/tutkualtinyaprak";
-const EMAIL = "tutku.altinyaprak@gmail.com";
+const LINKEDIN_URL = "https://www.linkedin.com/in/tutku-altinyaprak/";
+const GITHUB_URL = "https://github.com/tutku055";
+const EMAIL = "tutkualtinyaprak55@gmail.com";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -46,40 +46,25 @@ const Footer: React.FC = () => {
       <div className="footer-inner">
         {/* ── Brand column ── */}
         <div className="footer-brand">
-          <a href="#" className="footer-logo-link" onClick={(e) => { e.preventDefault(); scrollToTop(); }}>
-            <img src="/assets/Tutku_Logo.png" alt="" className="footer-logo-img" />
+          <a
+            href="#"
+            className="footer-logo-link"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToTop();
+            }}
+          >
+            <img
+              src="/assets/Tutku_Logo.png"
+              alt=""
+              className="footer-logo-img"
+            />
           </a>
           <span className="footer-tagline">
-            Crafting digital experiences<br />with{" "}
-            <span className="footer-accent">passion</span> &amp; code.
+            Crafting digital experiences
+            <br />
+            with <span className="footer-accent">passion</span> &amp; code.
           </span>
-          <div className="footer-socials">
-            <a
-              href={LINKEDIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-social-btn"
-              aria-label="LinkedIn"
-            >
-              <LinkedinLogo weight="duotone" size={20} />
-            </a>
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-social-btn"
-              aria-label="GitHub"
-            >
-              <GithubLogo weight="duotone" size={20} />
-            </a>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="footer-social-btn"
-              aria-label="Send Email"
-            >
-              <EnvelopeSimple weight="duotone" size={20} />
-            </a>
-          </div>
         </div>
 
         {/* ── Nav column ── */}
@@ -122,7 +107,7 @@ const Footer: React.FC = () => {
             className="footer-contact-link"
           >
             <GithubLogo weight="duotone" size={16} />
-            tutkualtinyaprak
+            tutku055
           </a>
         </div>
       </div>
@@ -131,7 +116,7 @@ const Footer: React.FC = () => {
       <div className="footer-bottom">
         <p className="footer-copy">
           © {new Date().getFullYear()} Tutku Altınyaprak. Made with{" "}
-          <Heart weight="fill" size={13} className="footer-heart" /> in Istanbul.
+          <Heart weight="fill" size={13} className="footer-heart" />
         </p>
         <button
           className="footer-scroll-top"

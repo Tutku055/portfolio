@@ -43,14 +43,13 @@ const HomeEntrance: React.FC = () => {
         </div>
 
         <div className="title-wrap">
-          <span className="title-kicker">Portfolio Entrance</span>
           <h1>
             <span>Tutku ALTINYAPRAK</span>
           </h1>
           <h2 className="hero-role">Backend Developer</h2>
           <p>
-            Building robust and efficient backend solutions with a focus on
-            performance and scalability.
+            I don't just write code!
+            <br /> I engineer the quiet machinery behind the scenes.
           </p>
         </div>
       </section>

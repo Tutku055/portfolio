@@ -48,30 +48,21 @@ const AboutMe: React.FC = () => {
         <div className="about-content">
           <div className="about-text-column">
             <p className="about-description">
-              Hello! I'm a software engineer deeply passionate about building
-              Hello! I'm a software engineer deeply passionate about building
-              Hello! I'm a software engineer deeply passionate about building
-              Hello! I'm a software engineer deeply passionate about building
-              Hello! I'm a software engineer deeply passionate about
-              buildingHello! I'm a software engineer deeply passionate about
-              buildingHello! I'm a software engineer deeply passionate about
-              buildingHello! I'm a software engineer deeply passionate about
-              buildingHello! I'm a software engineer deeply passionate about
-              buildingHello! I'm a software engineer deeply passionate about
-              building <span className="glow-word">scalable</span>,
-              <span className="glow-word"> performant</span>, and visually
-              stunning digital experiences. My interest in web development
-              started when I tried editing custom themes, which taught me
-              everything about HTML, CSS, and{" "}
-              <span className="glow-word">interactive UI states</span>.
-              <br />
-              <br />
-              Today, my main focus lies in building{" "}
-              <span className="glow-word">accessible</span>, forward-thinking
-              applications and{" "}
-              <span className="glow-word">seamless integrations</span> between
-              complex systems, layering purposeful motion and futuristic accents
-              to bring static sites to life.
+              I am a{" "}
+              <span className="glow-word">3rd-year Computer Engineering </span>
+              student with a core expertise in{" "}
+              <span className="glow-word">backend development</span>, primarily
+              using <span className="glow-word">.NET Core </span>. While my main
+              focus is on building{" "}
+              <span className="glow-word">scalable systems</span> and applying
+              solid software architecture principles, my skill set also covers
+              SQL, React, and modern developer tools. With a previous{" "}
+              <span className="glow-word">internship experience </span>
+              and a strong drive for continuous learning, my goal is to write{" "}
+              <span className="glow-word">clean, maintainable code</span> that
+              solves real problems. I am currently seeking an opportunity to
+              contribute to a{" "}
+              <span className="glow-word">strong engineering team</span>.
             </p>
             <a
               href={cvFile}
