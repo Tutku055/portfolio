@@ -6,7 +6,7 @@ export interface ProjectData {
   /** Full description shown in the modal */
   description: string;
   /** Phosphor icon identifier */
-  icon: "brain" | "graph" | "bookOpen";
+  icon: "calendar" | "cpu" | "factory";
   /** Technologies / tools used */
   technologies: string[];
   /** Image URLs or paths for the gallery */
@@ -18,44 +18,75 @@ export interface ProjectData {
 
 /**
  * Neon colour cycle: blue → green → blue → green → …
- * Projects with an index that falls on (index % 3 === 2) get a mixed glow.
  */
 const COLOR_CYCLE = [
-  { primary: "#0088ff", secondary: "#0088ff" },   // blue
-  { primary: "#00ffa6", secondary: "#00ffa6" },   // green
-  { primary: "#0088ff", secondary: "#00ffa6" },   // mixed
+  { primary: "#0088ff", secondary: "#0088ff" }, // blue
+  { primary: "#00ffa6", secondary: "#00ffa6" }, // green
 ];
 
 /** Raw project entries — add as many as you want here */
 const rawProjects: Omit<ProjectData, "glowColor" | "glowColorSecondary">[] = [
   {
-    id: "neurotasker",
-    title: "NeuroTasker",
-    tagline: "AI-Powered Task Management",
+    id: "leave-management-system",
+    title: "Leave Management System",
+    tagline: "Visualized HR Management",
     description:
-      "AI-powered task management with brain-computer interface (BCI) integration. Uses .NET & Python backend with Clean Architecture. Features intelligent task prioritisation, EEG-based focus detection, and natural language processing for task creation.",
-    icon: "brain",
-    technologies: [".NET 8", "Python", "Clean Architecture", "SignalR", "SQLite", "EEG/BCI"],
-    images: [],
+      "A robust desktop application developed for an industrial firm to automate and streamline the management and scheduling of employee leave requests. Built with WPF and MSSQL, the system ensures secure data persistence and an intuitive interface for optimizing administrative HR workflows.",
+    icon: "calendar",
+    technologies: [
+      ".NET",
+      "WPF",
+      "C#",
+      "MSSQL",
+      "SQL Server",
+      "Desktop Development",
+    ],
+    images: [
+      "/assets/images/LMS/LMS1.jpeg",
+      "/assets/images/LMS/LMS2.jpeg",
+      "/assets/images/LMS/LMS3.jpeg",
+      "/assets/images/LMS/LMS4.jpeg",
+      "/assets/images/LMS/LMS5.jpeg",
+      "/assets/images/LMS/LMS6.jpeg",
+    ],
   },
   {
-    id: "p2p-network",
-    title: "P2P Network",
-    tagline: "Decentralised Connectivity",
+    id: "5g-resource-allocation-optimizer",
+    title: "5G Resource Allocation Optimizer",
+    tagline: "AI-Driven Network Efficiency",
     description:
-      "Decentralised peer-to-peer connectivity layer with NAT traversal, STUN/TURN servers, and SignalR relay fallback. Enables direct communication between peers on different networks with automatic connection negotiation.",
-    icon: "graph",
-    technologies: ["C#", "SignalR", "WebRTC", "UDP/TCP", "Blazor", "STUN/TURN"],
-    images: [],
+      "Developed a machine learning-based optimizer that dynamically allocates 5G network resources based on application requirements and real-time metrics. Leveraging FastAPI for the backend and Scikit-learn for predictive modeling, the project features comprehensive performance comparisons to ensure high-efficiency allocation.",
+    icon: "cpu",
+    technologies: [
+      "Python",
+      "FastAPI",
+      "Machine Learning",
+      "Scikit-learn",
+      "5G Networks",
+      "Data Analysis",
+    ],
+    images: [
+      "/assets/images/5G/M5G1.png",
+      "/assets/images/5G/M5G2.png",
+      "/assets/images/5G/M5G3.png",
+      "/assets/images/5G/M5G4.png",
+    ],
   },
   {
-    id: "scientific-paper",
-    title: "Scientific Paper",
-    tagline: "Research & Publication Platform",
+    id: "cnc-monitoring-service",
+    title: "CNC Monitoring Service",
+    tagline: "Real-Time Industry Monitoring",
     description:
-      "Research publication platform with LaTeX rendering, interactive graphs, and collaborative review workflows. Supports real-time co-editing, version control for manuscripts, and automated citation management.",
-    icon: "bookOpen",
-    technologies: ["React", "LaTeX", "D3.js", "Node.js", "PostgreSQL", "WebSocket"],
+      "A high-performance C++ API designed for real-time monitoring of multiple CNC machines via the FANUC library. It utilizes multi-threading to track efficiency metrics, production counts, and alarm statuses, logging processed data to MSSQL for industrial analytics.",
+    icon: "factory",
+    technologies: [
+      "C++",
+      "MSSQL",
+      "Multithreading",
+      "Industrial IoT",
+      "FANUC FOCAS",
+      "Real-time Systems",
+    ],
     images: [],
   },
 ];

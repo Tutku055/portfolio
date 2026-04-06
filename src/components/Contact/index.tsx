@@ -13,9 +13,9 @@ import {
 import Particles from "../Particles";
 import "./Contact.css";
 
-const LINKEDIN_URL = "https://www.linkedin.com/in/tutkualtinyaprak/";
-const GITHUB_URL = "https://github.com/tutkualtinyaprak";
-const EMAIL = "tutku.altinyaprak@gmail.com";
+const LINKEDIN_URL = "https://www.linkedin.com/in/tutku-altinyaprak/";
+const GITHUB_URL = "https://github.com/tutku055";
+const EMAIL = "tutkualtinyaprak55@gmail.com";
 const MAPS_URL =
   "https://www.google.com/maps/place/Istanbul,+Turkey/@41.0082,28.9784,12z";
 
@@ -111,7 +111,7 @@ const Contact: React.FC = () => {
               </div>
               <div className="contact-card-text">
                 <span className="contact-card-label">GitHub</span>
-                <span className="contact-card-value">tutkualtinyaprak</span>
+                <span className="contact-card-value">tutku055</span>
               </div>
             </a>
 
@@ -215,7 +215,10 @@ const Contact: React.FC = () => {
                 />
               </div>
 
-              <button type="submit" className={`send-btn${sent ? " sent" : ""}`}>
+              <button
+                type="submit"
+                className={`send-btn${sent ? " sent" : ""}`}
+              >
                 {sent ? (
                   <>
                     <CheckCircle weight="bold" size={20} />
@@ -233,8 +236,7 @@ const Contact: React.FC = () => {
         </div>
 
         {/* Footer tagline */}
-        <div className="contact-footer">
-        </div>
+        <div className="contact-footer"></div>
       </div>
     </section>
   );

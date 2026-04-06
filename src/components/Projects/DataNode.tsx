@@ -1,12 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Brain, Graph, BookOpen } from "@phosphor-icons/react";
+import { Calendar, Cpu, Factory } from "@phosphor-icons/react";
 import type { ProjectData } from "./projectsData";
 
 const iconMap: Record<string, React.ElementType> = {
-  brain: Brain,
-  graph: Graph,
-  bookOpen: BookOpen,
+  calendar: Calendar,
+  cpu: Cpu,
+  factory: Factory,
 };
 
 interface DataNodeProps {
@@ -15,7 +15,7 @@ interface DataNodeProps {
 }
 
 const DataNode: React.FC<DataNodeProps> = ({ project, onClick }) => {
-  const Icon = iconMap[project.icon] ?? Brain;
+  const Icon = iconMap[project.icon] ?? Calendar;
   const glowPrimary = project.glowColor ?? "#0088ff";
   const glowSecondary = project.glowColorSecondary ?? glowPrimary;
 

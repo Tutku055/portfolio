@@ -180,7 +180,8 @@
 }
 
 @keyframes ringPulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 0.3;
   }
@@ -278,8 +279,8 @@
   margin: 0 0 0.25rem;
   font-size: 1.8rem;
   font-weight: 700;
-  color: var(--accent-cyan, #4fd9ff);
-  text-shadow: 0 0 14px rgba(79, 217, 255, 0.4);
+  color: var(--modal-glow, #4fd9ff);
+  text-shadow: 0 0 14px var(--modal-glow-secondary);
 }
 
 .modal-tagline {
@@ -300,7 +301,8 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--modal-glow, #0088ff);
-  opacity: 0.85;
+  text-shadow: 0 0 8px var(--modal-glow);
+  opacity: 0.9;
 }
 
 .modal-description {
@@ -323,9 +325,12 @@
   font-weight: 500;
   letter-spacing: 0.04em;
   color: var(--modal-glow, #4fd9ff);
-  border: 1px solid rgba(79, 217, 255, 0.2);
+  border: 1px solid var(--modal-glow);
   border-radius: 6px;
-  background: rgba(79, 217, 255, 0.06);
+  background: transparent;
+  box-shadow:
+    inset 0 0 8px transparent,
+    0 0 6px var(--modal-glow-secondary, var(--modal-glow));
   white-space: nowrap;
 }
 

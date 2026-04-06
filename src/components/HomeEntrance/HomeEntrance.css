@@ -89,7 +89,7 @@
 .hero-image-shell {
   position: relative;
   width: min(90vw, 900px);
-  height: clamp(260px, 55vw, 460px);
+  height: clamp(260px, min(55vw, 40vh), 460px);
   margin: 0 auto;
 }
 
@@ -124,7 +124,7 @@
   left: 50%;
   bottom: -40px; /* shift hero image a little lower */
   transform: translateX(-50%);
-  width: min(82vw, 520px);
+  width: min(82vw, 520px, 50vh);
   pointer-events: none;
 }
 

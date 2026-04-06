@@ -37,11 +37,7 @@ const Projects: React.FC = () => {
 
   return (
     <>
-      <section
-        ref={sectionRef}
-        className="projects-section"
-        id="projects"
-      >
+      <section ref={sectionRef} className="projects-section" id="projects">
         <NeonLights opacity={backgroundOpacity} />
 
         <div
