@@ -1,0 +1,201 @@
+.home-entrance {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7rem 1.5rem 2.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Koyu arka plan katmanı: Aşağı kaydırdıkça belirerek Home alanını karartır */
+.home-fade-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: #000;
+  z-index: 10;
+  pointer-events: none;
+  /* Scroll event'lerle değiştiği için performansı artırmak adına will-change */
+  will-change: opacity;
+}
+
+.hero-center {
+  text-align: center;
+  position: relative;
+  width: min(980px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  animation: rise-in 0.95s ease both;
+}
+
+.title-wrap {
+  position: relative;
+  z-index: 2;
+  margin-top: 1.45rem;
+}
+
+.title-kicker {
+  display: inline-block;
+  margin-bottom: 0.95rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #bcc8e6;
+  border: 1px solid rgba(169, 179, 212, 0.37);
+  border-radius: 999px;
+  padding: 0.44rem 0.8rem;
+  background: rgba(32, 38, 64, 0.45);
+}
+
+.title-wrap h1 {
+  font-family: "Sora", "Segoe UI", sans-serif;
+  font-size: clamp(1.8rem, 4.4vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: #f7f9ff;
+  margin: 0 auto 0.8rem;
+}
+
+.title-wrap h1 span {
+  background: linear-gradient(120deg, #fefefe 0%, #b2c2ef 45%, #9fe8f6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 24px rgba(159, 232, 246, 0.16);
+}
+
+.hero-role {
+  margin: 0 0 0.85rem;
+  font-family: "Sora", "Segoe UI", sans-serif;
+  font-size: clamp(0.95rem, 1.9vw, 1.22rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #c7d6fa;
+}
+
+.title-wrap p {
+  width: min(640px, 100%);
+  margin: 0 auto;
+  color: #a7b4d4;
+  font-size: clamp(0.95rem, 1.7vw, 1.1rem);
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+.hero-image-shell {
+  position: relative;
+  width: min(90vw, 900px);
+  height: clamp(260px, 55vw, 460px);
+  margin: 0 auto;
+}
+
+.hero-image-shell::before {
+  content: "";
+  position: absolute;
+  inset: -30vmax;
+  background: radial-gradient(
+    64% 60% at 50% 48%,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.76) 24%,
+    rgba(3, 7, 13, 0.54) 46%,
+    rgba(6, 11, 20, 0.34) 64%,
+    rgba(9, 15, 27, 0.16) 82%,
+    rgba(10, 17, 30, 0.06) 93%,
+    transparent 100%
+  );
+  filter: blur(28px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero-image-stage {
+  position: absolute;
+  inset: 0;
+  /* Removed the hard elliptical background shapes */
+  background: transparent;
+}
+
+.hero-image-blend {
+  position: absolute;
+  left: 50%;
+  bottom: -40px; /* shift hero image a little lower */
+  transform: translateX(-50%);
+  width: min(82vw, 520px);
+  pointer-events: none;
+}
+
+.hero-image-blend img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+  -webkit-mask-image:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      black 25%,
+      /* smoother side fade */ black 75%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 15%,
+      /* smoother vertical fade */ black 65%,
+      transparent 90% /* leaves bottom mostly transparent for base fade */
+    );
+  -webkit-mask-composite: source-in; /* Use intersect composition */
+  mask-image:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      black 25%,
+      black 75%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 15%,
+      black 65%,
+      transparent 90%
+    );
+  mask-composite: intersect;
+}
+
+.hero-image-blend::after {
+  content: none;
+}
+
+@keyframes rise-in {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 960px) {
+  .home-entrance {
+    padding-top: 6.35rem;
+  }
+
+  .title-wrap {
+    margin-top: 1rem;
+  }
+
+  .hero-image-shell {
+    height: clamp(250px, 65vw, 370px);
+  }
+
+  .hero-image-blend {
+    width: min(92vw, 430px);
+  }
+}

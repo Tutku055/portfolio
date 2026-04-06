@@ -1,0 +1,178 @@
+.about-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: auto;
+  /* Add dynamic padding so the content never overlaps the 150px/max(15vw) pillars */
+  padding: 6rem calc(max(15vw, 150px) + 2rem) 6rem;
+
+  /* Arkaplan� animasyon ile y�netece�imiz i�in ana div transparent */
+  background: transparent;
+
+  color: #ccd6f6;
+  position: relative;
+  z-index: 10;
+
+  /* Ensure no hard edges */
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.about-container {
+  max-width: 1000px;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  position: relative;
+  z-index: 10;
+}
+
+.about-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3.5rem;
+}
+
+.neon-text {
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 6rem 3rem 4rem; /* Safely clear neon edges */
+  }
+  .about-container {
+    padding: 0;
+  }
+}
+
+.download-cv-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: #00ffff;
+  border: 1px solid #00ffff;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+  width: max-content;
+}
+
+.download-cv-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 255, 0.2),
+    transparent
+  );
+  transition: all 0.5s ease;
+}
+
+.download-cv-btn:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  box-shadow:
+    0 0 20px rgba(0, 255, 255, 0.4),
+    inset 0 0 10px rgba(0, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.download-cv-btn:hover::before {
+  left: 100%;
+}
+
+.download-icon {
+  transition: transform 0.3s ease;
+}
+
+.download-cv-btn:hover .download-icon {
+  transform: translateY(-1px);
+}
+
+.about-description {
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
+  line-height: 1.7;
+  color: #8892b0;
+  margin: 0 auto 3rem;
+  text-align: center;
+  max-width: 800px;
+}
+
+:root {
+  --glow-color-blue: #00ffff;
+}
+
+.glow-word {
+  color: var(--glow-color-blue);
+  font-weight: 500;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+  transition:
+    text-shadow 0.3s ease,
+    color 0.3s ease;
+}
+
+.glow-word:hover {
+  text-shadow: 0 0 12px rgba(0, 255, 255, 0.8);
+}
+
+.about-content {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  align-items: center;
+}
+
+.about-text-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-visual-column {
+  flex: 1;
+  height: 100%;
+  min-height: 250px;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 255, 170, 0.1) 0%,
+    transparent 60%
+  );
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-stack-glow {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 40px rgba(0, 255, 170, 0.1);
+  border: 1px solid rgba(0, 255, 170, 0.2);
+  border-radius: 12px;
+}

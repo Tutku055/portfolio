@@ -1,0 +1,53 @@
+.particles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  bottom: -50px;
+  left: var(--left);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(circle, var(--accent-cyan) 30%, transparent 80%);
+  border-radius: 50%;
+  opacity: var(--opacity);
+  filter: blur(12px);
+  animation: raise var(--duration) linear infinite;
+  animation-delay: var(--delay);
+  box-shadow: 0 0 20px var(--accent-cyan);
+}
+
+.particle:nth-child(even) {
+  background: radial-gradient(circle, var(--accent-teal) 30%, transparent 80%);
+  box-shadow: 0 0 20px var(--accent-teal);
+}
+
+.particle:nth-child(3n) {
+  background: radial-gradient(circle, var(--accent-gold) 30%, transparent 80%);
+  box-shadow: 0 0 20px var(--accent-gold);
+}
+
+@keyframes raise {
+  0% {
+    transform: translate3d(var(--drift), 0, 0) scale(0.9);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--opacity);
+  }
+  50% {
+    transform: translate3d(calc(var(--drift) * -0.25), -55vh, 0) scale(1.08);
+    opacity: var(--opacity);
+  }
+  100% {
+    transform: translate3d(calc(var(--drift) * 0.35), -110vh, 0) scale(1.2);
+    opacity: 0;
+  }
+}

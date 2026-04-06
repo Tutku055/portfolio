@@ -1,0 +1,286 @@
+/* filepath: src/components/NeonLights/NeonLights.css */
+/* Scroll ile değişecek siyah arkaplan katmanı */
+.neon-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 25%,
+    rgba(0, 0, 0, 1) 75%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* --- CYBERPUNK NEON PILLARS --- */
+.neon-pillars-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.neon-pillar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: max(15vw, 150px);
+  pointer-events: none;
+  z-index: 20;
+  /* Üst-alt kısımlarda transparanlık daha güçlü ve daha erken başlar */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
+}
+
+.left-pillar {
+  left: 0;
+}
+
+.right-pillar {
+  right: 0;
+}
+
+/* Merkezi Neon Tüpler */
+.neon-tube {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  background: #ffffff;
+  border-radius: 20px;
+  z-index: 3;
+  overflow: visible;
+}
+
+.left-pillar .neon-tube {
+  right: 30%;
+  box-shadow: none;
+}
+
+.right-pillar .neon-tube {
+  left: 30%;
+  box-shadow: none;
+}
+
+.left-pillar .neon-tube::before,
+.right-pillar .neon-tube::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 28px;
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+.left-pillar .neon-tube::before {
+  right: 100%;
+  background: linear-gradient(
+    to left,
+    rgba(0, 136, 255, 0.85) 0%,
+    rgba(0, 136, 255, 0) 100%
+  );
+  filter: blur(15px);
+}
+
+.right-pillar .neon-tube::before {
+  left: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(0, 255, 166, 0.85) 0%,
+    rgba(0, 255, 166, 0) 100%
+  );
+  filter: blur(15px);
+}
+
+/* Parçacık Bulutu ve Duman/Dalgalanma Efekti */
+.particle-cloud {
+  position: absolute;
+  top: 20%;
+  bottom: 20%;
+  height: 60%;
+  opacity: 0.7;
+  z-index: 2;
+  mix-blend-mode: screen;
+}
+
+.left-pillar .particle-cloud {
+  right: 30%;
+  width: 70%;
+  background:
+    radial-gradient(
+      ellipse 200% 250% at right,
+      rgba(0, 136, 255, 0.35) 0%,
+      transparent 80%
+    ),
+    url('data:image/svg+xml;utf8,<svg fill="%230088ff" opacity="0.25" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="3"/><circle cx="100" cy="80" r="2.5"/><circle cx="160" cy="40" r="2"/><circle cx="60" cy="140" r="3"/><circle cx="140" cy="170" r="2.5"/><circle cx="30" cy="100" r="1.5"/><circle cx="180" cy="120" r="2"/></svg>');
+  background-size:
+    100% 100%,
+    150px 150px;
+  animation: floatUp 15s linear infinite;
+  filter: blur(4px) contrast(1.2);
+  /* Alt ve üst için transparentlık eklendi. */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
+}
+
+.right-pillar .particle-cloud {
+  left: 30%;
+  width: 70%;
+  background:
+    radial-gradient(
+      ellipse 200% 250% at left,
+      rgba(0, 255, 166, 0.35) 0%,
+      transparent 80%
+    ),
+    url('data:image/svg+xml;utf8,<svg fill="%2300ffa6" opacity="0.25" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="3"/><circle cx="100" cy="80" r="2.5"/><circle cx="160" cy="40" r="2"/><circle cx="60" cy="140" r="3"/><circle cx="140" cy="170" r="2.5"/><circle cx="30" cy="100" r="1.5"/><circle cx="180" cy="120" r="2"/></svg>');
+  background-size:
+    100% 100%,
+    180px 180px;
+  animation: floatUp 20s linear infinite reverse;
+  filter: blur(4px) contrast(1.2);
+  /* Alt ve üst için transparentlık eklendi. */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
+}
+
+/* Yukarı akan enerji dalgaları */
+.energy-flow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(
+    0deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 100%
+  );
+  background-size: 100% 150vh;
+  animation: scanEnergy 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  z-index: 1;
+}
+
+.left-pillar .energy-flow {
+  right: 30%;
+  width: 70%;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
+}
+
+.right-pillar .energy-flow {
+  left: 30%;
+  width: 70%;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
+}
+
+@keyframes floatUp {
+  0% {
+    background-position:
+      center,
+      0px 400px;
+  }
+  100% {
+    background-position:
+      center,
+      0px 0px;
+  }
+}
+
+@keyframes scanEnergy {
+  0% {
+    background-position: 0% 150vh;
+  }
+  100% {
+    background-position: 0% -150vh;
+  }
+}
+
+/* Mobil için sadece neon cizgileri goster, gaz bulutlarını gizle */
+@media (max-width: 768px) {
+  .particle-cloud,
+  .energy-flow {
+    display: none;
+  }
+
+  .neon-pillar {
+    width: 20px; /* Sadece kenarlarda neon tupu sığacak kadar daraltalım ki boşuna yer/ekran kaplamasin */
+  }
+
+  .left-pillar .neon-tube {
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .right-pillar .neon-tube {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

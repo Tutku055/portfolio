@@ -1,0 +1,553 @@
+/* ============================================================
+   Roadmap Timeline — Straight Road + Vertical Mobile Fallback
+   ============================================================ */
+
+/* --- Wrapper --- */
+.roadmap-wrapper {
+  width: 100%;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 10;
+}
+
+.roadmap-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 12px rgba(0, 255, 255, 0.35);
+}
+
+/* ============================================================
+   Desktop: SVG Straight Road
+   ============================================================ */
+.roadmap-desktop {
+  /* Break out of about-container's max-width to span the whole screen */
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  position: relative;
+}
+
+.roadmap-road-container {
+  position: relative;
+  /* Exactly span between the left and right neon tubes */
+  /* Each tube is 30% from the inner edge of max(15vw, 150px), so it's 70% from the screen edge */
+  width: calc(100vw - 1.4 * max(15vw, 150px));
+  /* Start exactly at the left neon tube */
+  margin: 0 auto;
+}
+
+.roadmap-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- Markers overlay --- */
+.roadmap-markers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ── Each marker: absolute inside the overlay ── */
+.ms-marker {
+  position: absolute;
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 2;
+  transition: filter 0.3s ease;
+}
+
+.ms-marker:focus-visible {
+  outline: 2px solid var(--ms-glow);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* --- Above road: label on top, pin at bottom → bottom edge at road centre --- */
+.ms-marker--above {
+  flex-direction: column;
+  bottom: 50%;
+  top: auto;
+  /* nudge down so pin centre aligns with road (half of 42px pin) */
+  margin-bottom: -21px;
+}
+
+/* --- Below road: pin on top, label below → top edge at road centre --- */
+.ms-marker--below {
+  flex-direction: column;
+  top: 50%;
+  bottom: auto;
+  /* nudge up so pin centre aligns with road */
+  margin-top: -21px;
+}
+
+/* --- Pin circle --- */
+.ms-pin {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(255, 255, 255, 0.15),
+    rgba(0, 0, 0, 0)
+  ), #050810;
+  border: 2px solid var(--ms-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 14px var(--ms-glow),
+    0 0 34px rgba(0, 0, 0, 0.5);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.ms-marker:hover .ms-pin {
+  box-shadow:
+    0 0 22px var(--ms-glow),
+    0 0 55px var(--ms-glow),
+    inset 0 0 8px rgba(255, 255, 255, 0.1);
+  transform: scale(1.14);
+}
+
+.ms-pin-number {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ms-glow);
+  text-shadow: 0 0 6px var(--ms-glow);
+  letter-spacing: 0.05em;
+}
+
+/* --- Label card (rectangular box) --- */
+.ms-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.65rem 1rem;
+  background: rgba(10, 14, 28, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  max-width: 230px;
+  min-width: 160px;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.ms-marker:hover .ms-label {
+  border-color: var(--ms-glow);
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.45);
+}
+
+.ms-label-step {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ms-glow);
+  text-shadow: 0 0 4px var(--ms-glow);
+}
+
+.ms-label-period {
+  font-size: 0.72rem;
+  color: #8892b0;
+  letter-spacing: 0.03em;
+}
+
+.ms-label-position {
+  font-size: 0.78rem;
+  color: #b0bed6;
+  font-weight: 500;
+}
+
+/* ============================================================
+   Mobile: Vertical Timeline
+   ============================================================ */
+.roadmap-mobile {
+  display: none;
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.roadmap-vertical-line {
+  position: absolute;
+  left: 1.1rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    to bottom,
+    #00c8ff 0%,
+    #ff2d75 20%,
+    #a855f7 45%,
+    #f8e912 70%,
+    #00ffa6 100%
+  );
+  border-radius: 2px;
+  opacity: 0.5;
+  box-shadow: 0 0 10px rgba(0, 136, 255, 0.3);
+}
+
+.roadmap-v-item {
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.2rem 0;
+  position: relative;
+  text-align: left;
+  width: 100%;
+  transition: transform 0.2s ease;
+}
+
+.roadmap-v-item:focus-visible {
+  outline: 2px solid var(--ms-glow);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.roadmap-v-pin {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--ms-glow);
+  background: rgba(10, 14, 28, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ms-glow);
+  text-shadow: 0 0 6px var(--ms-glow);
+  box-shadow: 0 0 12px var(--ms-glow);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+  position: relative;
+  left: -1.25rem;
+}
+
+.roadmap-v-item:hover .roadmap-v-pin {
+  box-shadow:
+    0 0 20px var(--ms-glow),
+    0 0 40px var(--ms-glow);
+  transform: scale(1.15);
+}
+
+.roadmap-v-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.6rem 0.9rem;
+  background: rgba(10, 14, 28, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  flex: 1;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.roadmap-v-item:hover .roadmap-v-content {
+  border-color: var(--ms-glow);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.roadmap-v-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ms-glow);
+  text-shadow: 0 0 4px var(--ms-glow);
+}
+
+.roadmap-v-period {
+  font-size: 0.75rem;
+  color: #8892b0;
+}
+
+.roadmap-v-position {
+  font-size: 0.8rem;
+  color: #b0bed6;
+  font-weight: 500;
+}
+
+/* ============================================================
+   Milestone Modal (mirrors ProjectModal styles)
+   ============================================================ */
+.milestone-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 1.5rem;
+}
+
+.milestone-modal {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: linear-gradient(
+    160deg,
+    rgba(10, 18, 36, 0.92),
+    rgba(6, 12, 24, 0.96)
+  );
+  border: 1px solid rgba(79, 217, 255, 0.16);
+  border-radius: 20px;
+  box-shadow:
+    0 0 0 1px var(--ms-glow),
+    0 0 40px rgba(0, 0, 0, 0.6),
+    0 0 60px color-mix(in srgb, var(--ms-glow) 15%, transparent);
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  padding: 2rem 2.2rem 2.2rem;
+  color: #e6edf8;
+}
+
+/* Scrollbar */
+.milestone-modal::-webkit-scrollbar {
+  width: 6px;
+}
+.milestone-modal::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+.milestone-modal::-webkit-scrollbar-thumb {
+  background: rgba(79, 217, 255, 0.25);
+  border-radius: 3px;
+}
+
+/* Step badge */
+.ms-modal-step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--ms-glow);
+  background: rgba(0, 0, 0, 0.4);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--ms-glow);
+  text-shadow: 0 0 8px var(--ms-glow);
+  box-shadow: 0 0 16px var(--ms-glow);
+  margin-bottom: 1rem;
+}
+
+/* Modal header */
+.ms-modal-header {
+  margin-bottom: 1.6rem;
+  padding-right: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.ms-modal-title {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--ms-glow);
+  text-shadow: 0 0 12px color-mix(in srgb, var(--ms-glow) 40%, transparent);
+}
+
+.ms-modal-period {
+  font-size: 0.88rem;
+  color: #7a8ba8;
+  letter-spacing: 0.03em;
+}
+
+.ms-modal-position {
+  font-size: 0.95rem;
+  color: #b0bed6;
+  font-weight: 600;
+  margin-top: 0.1rem;
+}
+
+/* ============================================================
+   Responsive — Large Desktop (≤ 1200px)
+   ============================================================ */
+@media (max-width: 1200px) {
+
+  .ms-label {
+    max-width: 200px;
+    min-width: 140px;
+    padding: 0.55rem 0.85rem;
+  }
+
+  .ms-pin {
+    width: 38px;
+    height: 38px;
+  }
+
+  .ms-marker--above {
+    margin-bottom: -19px;
+  }
+
+  .ms-marker--below {
+    margin-top: -19px;
+  }
+}
+
+/* ============================================================
+   Responsive — Tablet (≤ 950px)
+   ============================================================ */
+@media (max-width: 950px) {
+  .roadmap-heading {
+    font-size: 1.7rem;
+  }
+
+  .ms-label {
+    max-width: 180px;
+    min-width: 120px;
+  }
+
+  .ms-label-step {
+    font-size: 0.75rem;
+  }
+
+  .ms-label-period,
+  .ms-label-position {
+    font-size: 0.68rem;
+  }
+
+  .ms-pin {
+    width: 34px;
+    height: 34px;
+  }
+
+  .ms-marker--above {
+    margin-bottom: -17px;
+  }
+
+  .ms-marker--below {
+    margin-top: -17px;
+  }
+
+  .ms-pin-number {
+    font-size: 0.72rem;
+  }
+}
+
+/* ============================================================
+   Responsive — Mobile (≤ 768px)
+   Switch from Straight Road to Vertical Timeline
+   ============================================================ */
+@media (max-width: 768px) {
+  .roadmap-wrapper {
+    margin-top: 3.5rem;
+  }
+
+  .roadmap-heading {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .roadmap-desktop {
+    display: none;
+  }
+
+  .roadmap-mobile {
+    display: block;
+  }
+
+  /* Modal */
+  .milestone-modal-backdrop {
+    padding: 0.8rem;
+    align-items: flex-end;
+  }
+
+  .milestone-modal {
+    max-height: 90vh;
+    padding: 1.5rem 1.4rem 1.6rem;
+    border-radius: 18px 18px 0 0;
+    max-width: 100%;
+  }
+
+  .ms-modal-title {
+    font-size: 1.3rem;
+  }
+}
+
+/* ============================================================
+   Responsive — Small (≤ 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .roadmap-heading {
+    font-size: 1.3rem;
+  }
+
+  .roadmap-v-pin {
+    width: 30px;
+    height: 30px;
+    font-size: 0.65rem;
+  }
+
+  .roadmap-v-title {
+    font-size: 0.85rem;
+  }
+
+  .roadmap-v-period {
+    font-size: 0.68rem;
+  }
+
+  .roadmap-v-position {
+    font-size: 0.72rem;
+  }
+}
+
+/* ============================================================
+   Responsive — Very Small (≤ 360px)
+   ============================================================ */
+@media (max-width: 360px) {
+  .roadmap-mobile {
+    padding-left: 2rem;
+  }
+
+  .roadmap-vertical-line {
+    left: 0.8rem;
+  }
+
+  .roadmap-v-pin {
+    width: 26px;
+    height: 26px;
+    font-size: 0.6rem;
+    left: -1rem;
+  }
+
+  .roadmap-v-content {
+    padding: 0.5rem 0.7rem;
+  }
+}

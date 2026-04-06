@@ -1,0 +1,429 @@
+@import "../../styles/globals.css";
+
+/* ─── Section Shell ──────────────────────────────────────── */
+.skills-section {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 90%,
+    transparent 100%
+  );
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  padding: 16rem 2rem 12rem;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(35, 159, 242, 0.22), transparent 38%),
+    radial-gradient(circle at 85% 15%, rgba(29, 217, 176, 0.15), transparent 42%),
+    radial-gradient(circle at 50% 82%, rgba(255, 187, 92, 0.12), transparent 48%),
+    linear-gradient(165deg, #070b14 0%, #0b111d 55%, #060a11 100%);
+}
+
+.skills-section::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90vw;
+  height: 90vh;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(3, 7, 13, 0.3) 40%,
+    transparent 100%
+  );
+  filter: blur(40px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ─── Container ──────────────────────────────────────────── */
+.skills-container {
+  max-width: 1300px;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+/* ─── Section Header ─────────────────────────────────────── */
+.skills-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.skills-header h2 {
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0;
+  color: #fff;
+  text-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+}
+
+.neon-text-skills {
+  text-shadow:
+    0 0 10px rgba(0, 255, 204, 0.3),
+    0 0 20px rgba(0, 255, 204, 0.2);
+  color: var(--accent-teal, #34f4c2);
+  font-family: "Space Mono", monospace;
+}
+
+/* ─── Category Block ─────────────────────────────────────── */
+.skill-category {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.category-title {
+  font-size: clamp(0.9rem, 1.5vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: "Space Mono", monospace;
+  color: var(--accent-cyan, #4fd9ff);
+  padding-left: 0.25rem;
+  position: relative;
+}
+
+.category-title::after {
+  content: "";
+  display: block;
+  margin-top: 0.45rem;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(79, 217, 255, 0.6),
+    rgba(52, 244, 194, 0.35),
+    transparent
+  );
+  border-radius: 2px;
+}
+
+/* ============================================================
+   Hex Grid — Flat-top hexagons (rotated 90° from pointy-top)
+   ============================================================
+
+   Flat-top hex geometry:
+     Width  = 2 * size
+     Height = √3 * size
+
+   For size = 60px:
+     Width  = 120px
+     Height = ~104px
+
+   Horizontal distance between centres (adjacent columns) = 3/4 * width = 90px
+   Vertical distance (between rows) = height = 104px
+   Odd columns shifted down by height/2 = 52px
+*/
+
+.hex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  /* We'll use a CSS grid for proper honeycomb */
+  display: grid;
+  --hex-w: 120px;
+  --hex-h: 104px;
+  --col-gap: 90px;  /* 3/4 of hex-w so edges touch */
+  grid-template-columns: repeat(auto-fill, var(--col-gap));
+  row-gap: 6px;
+  padding: 0.5rem 0 60px; /* bottom padding for stagger */
+  position: relative;
+}
+
+/* ─── Hex Node (individual cell) — Projects-style card ───── */
+.hex-node {
+  position: relative;
+  z-index: 1;
+  width: var(--hex-w);
+  height: var(--hex-h);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  cursor: default;
+
+  /* Flat-top hexagon clip path */
+  clip-path: polygon(
+    25% 0%,
+    75% 0%,
+    100% 50%,
+    75% 100%,
+    25% 100%,
+    0% 50%
+  );
+
+  /* Dark crystal background — matches Projects .data-node */
+  background: linear-gradient(
+    145deg,
+    rgba(12, 22, 42, 0.98),
+    rgba(10, 18, 32, 1)
+  );
+
+  /* Glow border via box-shadow doesn't work with clip-path,
+     so we use a filter + pseudo-element approach */
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+/* Stagger: every other column shifts down by half the hex height */
+.hex-node:nth-child(even) {
+  margin-top: calc(var(--hex-h) / 2);
+}
+
+/* ─── Glow Outline (pseudo-element behind the hex) ───────── */
+.hex-node::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  clip-path: polygon(
+    25% 0%,
+    75% 0%,
+    100% 50%,
+    75% 100%,
+    25% 100%,
+    0% 50%
+  );
+  background: linear-gradient(
+    135deg,
+    var(--glow-primary, #4fd9ff),
+    var(--glow-secondary, #34f4c2)
+  );
+  z-index: -1;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* ─── Crystal Facets (matching Projects) ─────────────────── */
+.hex-facet {
+  position: absolute;
+  width: 60%;
+  height: 30%;
+  pointer-events: none;
+  opacity: 0.07;
+  z-index: 0;
+}
+
+.hex-facet--top {
+  top: 0;
+  left: 0;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  background: linear-gradient(135deg, var(--glow-primary), transparent 70%);
+}
+
+.hex-facet--bottom {
+  bottom: 0;
+  right: 0;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  background: linear-gradient(315deg, var(--glow-secondary), transparent 70%);
+}
+
+/* ─── Animated Ring (same as Projects ringPulse) ─────────── */
+.hex-ring {
+  position: absolute;
+  inset: -8px;
+  clip-path: polygon(
+    25% 0%,
+    75% 0%,
+    100% 50%,
+    75% 100%,
+    25% 100%,
+    0% 50%
+  );
+  border: 1.5px solid var(--glow-primary);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  animation: hexRingPulse 2.8s ease-in-out infinite;
+}
+
+.hex-node:hover .hex-ring {
+  opacity: 1;
+}
+
+@keyframes hexRingPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.6;
+  }
+}
+
+/* ─── Content ────────────────────────────────────────────── */
+.hex-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 4px var(--glow-primary));
+  z-index: 1;
+  transition: filter 0.3s ease;
+}
+
+/* GitHub-based icons need inversion on dark bg */
+.hex-icon[alt="GitHub"],
+.hex-icon[alt="GitHub CLI"] {
+  filter: invert(1) brightness(1.5) drop-shadow(0 0 4px var(--glow-primary));
+}
+
+/* Brighter Visual Studio */
+.hex-icon[alt="Visual Studio"] {
+  filter: brightness(1.6) saturate(1.5) drop-shadow(0 0 5px var(--glow-primary));
+}
+
+/* Removed ASP.NET Core custom glow per user request */
+
+.hex-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-align: center;
+  color: #e6edf8;
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  max-width: 80px;
+  z-index: 1;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+/* ─── Hover Glow — Matches Projects .data-node:hover ─────── */
+.hex-node:hover {
+  z-index: 10;
+  filter:
+    drop-shadow(0 0 14px var(--glow-primary))
+    drop-shadow(0 0 36px var(--glow-secondary))
+    brightness(1.12);
+}
+
+.hex-node:hover::before {
+  opacity: 0.75;
+}
+
+.hex-node:hover .hex-icon {
+  filter: drop-shadow(0 0 8px var(--glow-primary)) brightness(1.2);
+}
+
+.hex-node:hover .hex-label {
+  color: #fff;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1024px) {
+  .skills-container {
+    max-width: 900px;
+  }
+
+  .hex-grid {
+    --hex-w: 110px;
+    --hex-h: 95px;
+    --col-gap: 83px;
+  }
+
+  .hex-icon {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-section {
+    padding: 12rem 1.5rem 9rem;
+  }
+
+  .hex-grid {
+    --hex-w: 95px;
+    --hex-h: 82px;
+    --col-gap: 72px;
+  }
+
+  .hex-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .hex-label {
+    font-size: 0.52rem;
+    max-width: 66px;
+  }
+
+  .category-title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-section {
+    padding: 10rem 1rem 8rem;
+  }
+
+  .hex-grid {
+    --hex-w: 80px;
+    --hex-h: 69px;
+    --col-gap: 60px;
+    row-gap: 4px;
+  }
+
+  .hex-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .hex-label {
+    font-size: 0.46rem;
+    max-width: 55px;
+  }
+
+  .category-title {
+    font-size: 0.95rem;
+  }
+
+  .hex-node:nth-child(even) {
+    margin-top: calc(var(--hex-h) / 2);
+  }
+}
+
+@media (max-width: 360px) {
+  .hex-grid {
+    --hex-w: 68px;
+    --hex-h: 59px;
+    --col-gap: 51px;
+    row-gap: 3px;
+  }
+
+  .hex-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .hex-label {
+    font-size: 0.42rem;
+    max-width: 48px;
+  }
+}
