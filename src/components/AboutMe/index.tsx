@@ -5,8 +5,7 @@ import "./AboutMe.css";
 import NeonLights from "../NeonLights";
 import RoadmapTimeline from "./RoadmapTimeline";
 
-// @ts-ignore
-import cvFile from "../../../assets/Tutku_Altınyaprak_CV.pdf";
+const cvFile = "/portfolio/Tutku_Altınyaprak_CV.pdf";
 
 const AboutMe: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);

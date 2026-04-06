@@ -72,7 +72,11 @@ const PillNavbar: React.FC = () => {
       <nav className="pill-navbar" aria-label="Main navigation">
         <a href="#" className="nav-brand" aria-label="Tutku home">
           <div className="brand-logo-container">
-            <img src="/assets/Tutku_Logo.png" alt="" className="brand-logo" />
+            <img
+              src="/portfolio/Tutku_Logo.png"
+              alt=""
+              className="brand-logo"
+            />
           </div>
           <span className="brand-name">Tutku</span>
         </a>
@@ -104,7 +108,15 @@ const PillNavbar: React.FC = () => {
           ))}
         </ul>
         <div className="nav-contact-shell">
-          <a href="#contact" className="nav-contact" onClick={(e) => { e.preventDefault(); const el = document.getElementById('contact'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }}>
+          <a
+            href="#contact"
+            className="nav-contact"
+            onClick={(e) => {
+              e.preventDefault();
+              const el = document.getElementById("contact");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
             <span className="contact-text">Contact</span>
             <PaperPlaneTilt size={20} weight="bold" className="contact-icon" />
           </a>

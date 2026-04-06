@@ -42,12 +42,12 @@ const rawProjects: Omit<ProjectData, "glowColor" | "glowColorSecondary">[] = [
       "Desktop Development",
     ],
     images: [
-      "/assets/images/LMS/LMS1.jpeg",
-      "/assets/images/LMS/LMS2.jpeg",
-      "/assets/images/LMS/LMS3.jpeg",
-      "/assets/images/LMS/LMS4.jpeg",
-      "/assets/images/LMS/LMS5.jpeg",
-      "/assets/images/LMS/LMS6.jpeg",
+      "/portfolio/images/LMS/LMS1.jpeg",
+      "/portfolio/images/LMS/LMS2.jpeg",
+      "/portfolio/images/LMS/LMS3.jpeg",
+      "/portfolio/images/LMS/LMS4.jpeg",
+      "/portfolio/images/LMS/LMS5.jpeg",
+      "/portfolio/images/LMS/LMS6.jpeg",
     ],
   },
   {
@@ -66,10 +66,10 @@ const rawProjects: Omit<ProjectData, "glowColor" | "glowColorSecondary">[] = [
       "Data Analysis",
     ],
     images: [
-      "/assets/images/5G/M5G1.png",
-      "/assets/images/5G/M5G2.png",
-      "/assets/images/5G/M5G3.png",
-      "/assets/images/5G/M5G4.png",
+      "/portfolio/images/5G/M5G1.png",
+      "/portfolio/images/5G/M5G2.png",
+      "/portfolio/images/5G/M5G3.png",
+      "/portfolio/images/5G/M5G4.png",
     ],
   },
   {

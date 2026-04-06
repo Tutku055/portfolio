@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
             }}
           >
             <img
-              src="/assets/Tutku_Logo.png"
+              src="/portfolio/Tutku_Logo.png"
               alt=""
               className="footer-logo-img"
             />

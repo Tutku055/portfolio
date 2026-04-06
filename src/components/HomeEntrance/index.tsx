@@ -36,7 +36,7 @@ const HomeEntrance: React.FC = () => {
           <div className="hero-image-stage" aria-hidden="true" />
           <div className="hero-image-blend">
             <img
-              src="/assets/images/Tutku_Hero.png"
+              src="/portfolio/images/Tutku_Hero.png"
               alt="Tutku hero portrait"
             />
           </div>
